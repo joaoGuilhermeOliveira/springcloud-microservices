@@ -1,13 +1,16 @@
 package io.github.joaoguilherme.mscartoes.application;
 
 import io.github.joaoguilherme.mscartoes.application.dto.CartaoSaveRequest;
+import io.github.joaoguilherme.mscartoes.application.dto.CartoesPorClienteResponse;
 import io.github.joaoguilherme.mscartoes.domain.Cartao;
+import io.github.joaoguilherme.mscartoes.domain.ClienteCartao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("cartoes")
@@ -15,6 +18,7 @@ import java.util.List;
 public class CartoesController {
 
     private final CartaoService cartaoService;
+    private final ClienteCartaoService clienteCartaoService;
 
     @GetMapping
     public String status() {
@@ -32,5 +36,12 @@ public class CartoesController {
     public ResponseEntity<List<Cartao>> getCartoesRendaAte(@RequestParam("renda") Long renda) {
         List<Cartao> list = cartaoService.getCartoesRendaMenorIgual(renda);
         return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(params = "cpf")
+    public ResponseEntity<List<CartoesPorClienteResponse>> getCartoesByCliente(@RequestParam("cpf") String cpf) {
+        List<ClienteCartao> lista = clienteCartaoService.listCartoesByCpf(cpf);
+        List<CartoesPorClienteResponse> resultList = lista.stream().map(CartoesPorClienteResponse::fromModel).collect(Collectors.toList());
+        return ResponseEntity.ok(resultList);
     }
 }
