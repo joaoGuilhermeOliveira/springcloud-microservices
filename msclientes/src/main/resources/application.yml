@@ -3,6 +3,7 @@ spring:
     name: msclientes
 
 server:
+  address: localhost
   port: 0
   error:
     include-stacktrace: never
@@ -13,7 +14,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
+    hostname: localhost
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
 
 
 
