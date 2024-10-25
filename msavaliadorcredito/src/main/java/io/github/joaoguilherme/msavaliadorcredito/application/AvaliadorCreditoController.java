@@ -55,5 +55,4 @@ public class AvaliadorCreditoController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
-
 }

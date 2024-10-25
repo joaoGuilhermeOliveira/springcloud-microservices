@@ -20,10 +20,9 @@ public class SolicitacaoEmissaoCartaoPublisher {
         rabbitTemplate.convertAndSend(queueEmissaoCartoes.getName(), json);
     }
 
-    private String convertIntoJson(DadosSolicitacaoEmissaoCartao dados) throws JsonProcessingException {
+    public String convertIntoJson(DadosSolicitacaoEmissaoCartao dados) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         var json = mapper.writeValueAsString(dados);
         return json;
     }
-
 }
