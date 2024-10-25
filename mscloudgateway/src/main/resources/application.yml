@@ -7,6 +7,12 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/msrealm
+
 server:
   port: 8080
 
@@ -15,7 +21,7 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://ms-eureka-user:ecok-usr-eeuramssur@localhost:8761/eureka
   instance:
     hostname: localhost
     prefer-ip-address: true
